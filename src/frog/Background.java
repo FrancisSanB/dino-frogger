@@ -5,18 +5,17 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Background{
-	// attributes of a frog
-	private int x, y; // Position of frog
-	private int width; // the size of frog
+	// attributes of a background
+	private int x, y; // Position of background
+	private int width; // the size of background
 	private int height;
 	private double scaleX, scaleY;
 	
-	private Image img; // image of the frog
+	private Image img; // image of the background
 	
 	/* if filename is provided */
 	public Background(String fileName, int x, int y, double scaleX, double scaleY) {
@@ -31,42 +30,17 @@ public class Background{
 		init(x, y);
 
 	}
-
-	/*public void reset() {
-		x = 200;	//reset position
-		y = 500;
-		img = up;	//reset img
-	}*/
 	
 	public void move() {
 		tx.setToTranslation(x, y);
 	}
-
-	/*//move the main dino
-	public void hop(KeyEvent e) {
-		if (e.getKeyCode() == 83 || e.getKeyCode() == 40) {
-			y += 50;
-		}
-		if (e.getKeyCode() == 87 || e.getKeyCode() == 38) {
-			y -= 50;
-		}
-		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) {
-			x += 50;
-		}
-		if (e.getKeyCode() == 65 || e.getKeyCode() == 37) {
-			x -= 50;
-		}
-		tx.setToTranslation(x, y);
-		
-	}*/
-	
 	
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 
 	// draw the affine transform
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		move(); //ask frog to update its location variables
+		move(); // update its location variables
 		tx.scale(scaleX, scaleY);
 		g2.drawImage(img, tx, null);
 		

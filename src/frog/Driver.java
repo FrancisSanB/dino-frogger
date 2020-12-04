@@ -27,8 +27,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Player dino;
 	Background grass;
 	Background ketchup;
-	
-	//Froggy frogs[] = new Froggy[10];
+	Broccoli brocs[] = new Broccoli[10];
 
 	Font big = new Font("Courier New", 1, 50);
 	Font font2 = new Font("Courier New", 1, 30);
@@ -41,15 +40,14 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	// method******************************************
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		
 
 		ketchup.paint(g);
 		grass.paint(g);
 		dino.paint(g);
 		
-		/*for(Froggy temp: frogs) {
+		for(Broccoli temp: brocs) {
 			temp.paint(g);
-		}*/
+		}
 		
 		if (dino.getX() < 0) {
 			dino.setX(250);
@@ -61,7 +59,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			dino.setY(700);
 		}
 
-		System.out.println(dino.getX() + "," + dino.getY());
+		//System.out.println(dino.getX() + "," + dino.getY());
 	}
 
 	public void update() {
@@ -85,15 +83,13 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setResizable(false);
 		f.addKeyListener(this);
 		
-		dino = new Player();
+		dino = new Player("pter.png");
 		ketchup = new Background("ketchupriver.png", 0, 0, 3, 3);
 		grass = new Background("grass.png", 0, 300, 1.25, 1.25);
 		
-		/*for (int i = 0; i < frogs.length; i ++) {
-			frogs[i] = new Froggy();
-			frogs[i].setX(i*50);
-		}*/
-
+		for (int i = 0; i < brocs.length; i++) {
+			brocs[i] = new Broccoli("broccoli.png", 0, height - i*50, 0.1, 0.1);
+		}
 	
 		f.addMouseListener(this);
 		f.add(this);
