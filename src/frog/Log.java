@@ -5,82 +5,55 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-public class Player{
-	// attributes of a dino
-	private int x, y; // Position of dino
-	private boolean alive; // lives
-	private int width; // the size of dino
-	private int height;
+public class Log{
+	// attributes
+	private int x, y; // Position 
+	private double vx, vy;
+	private double scaleX, scaleY;
+	private int height, width;
 	
-	private Image img; // image of the dino
-	private Image up;;
+	private Image img; // image
 	
 	/* if filename is provided */
-	public Player(String fileName) {
+	public Log(String fileName, int x, int y, double vx, double scaleX, double scaleY) {
 		// assignment statements for attributes
-		x = 250;
-		y = 700;
+		this.x = x;
+		this.y = y;
+		this.vx = vx;
+		vy = 0;
+		this.scaleX = scaleX;
+		this.scaleY = scaleY;
 		width = 50;
 		height = 50;
-		alive = true;
-		up = getImage(fileName);
-		img = up;
+		img = getImage(fileName);
 		
 		init(x, y);
-
-	}
-
-	public void reset() {
-		if (!alive) {
-			x = 200;	//reset position
-			y = 500;
-			img = up;	//reset img
-		}
 	}
 	
 	public void move() {
-		if (x < 0) {
-			x = 250;
-			y = 700;
-		}
-		
-		if (x >= 560 - 10) {
-			x = 250;
-			y = 700;
-		}
+		x += vx;
+		y += vy;
 		tx.setToTranslation(x, y);
 	}
-
-	//move the main dino
-	public void hop(KeyEvent e) {
-		if (e.getKeyCode() == 83 || e.getKeyCode() == 40) {
-			y += 50;
-		}
-		if (e.getKeyCode() == 87 || e.getKeyCode() == 38) {
-			y -= 50;
-		}
-		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) {
-			x += 50;
-		}
-		if (e.getKeyCode() == 65 || e.getKeyCode() == 37) {
-			x -= 50;
-		}
-		tx.setToTranslation(x, y);
-	}
-	
 	
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 
 	// draw the affine transform
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		move(); //ask dino to update its location variables
-		tx.scale(0.25, 0.25);
+		move(); //ask broccoli to update its location variables
+		tx.scale(scaleX, scaleY);
 		g2.drawImage(img, tx, null);
+		
+		if (x < -300) {
+			vx *= -1;
+		}
+		if (x > 600) {
+			vx *= -1;
+		}
 		
 	}
 
@@ -92,7 +65,7 @@ public class Player{
 	private Image getImage(String path) {
 		Image tempImage = null;
 		try {
-			URL imageURL = Player.class.getResource(path);
+			URL imageURL = Log.class.getResource(path);
 			tempImage = Toolkit.getDefaultToolkit().getImage(imageURL);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,6 +98,10 @@ public class Player{
 	
 	public int getWidth() {
 		return width;
+	}
+	
+	public double getVx() {
+		return vx;
 	}
 	
 	/* Helper function for collision detection later */

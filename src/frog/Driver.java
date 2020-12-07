@@ -28,6 +28,10 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Background grass;
 	Background ketchup;
 	Broccoli brocs[] = new Broccoli[10];
+	Log logs[] = new Log[3];
+	Onion bot[] = new Onion[5];
+	Onion mid[] = new Onion[5];
+	Onion top[] = new Onion[5];
 
 	Font big = new Font("Courier New", 1, 50);
 	Font font2 = new Font("Courier New", 1, 30);
@@ -41,23 +45,25 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 
-		ketchup.paint(g);
 		grass.paint(g);
-		dino.paint(g);
-		
-		for(Broccoli temp: brocs) {
+		ketchup.paint(g);
+		for (Broccoli temp: brocs) {
 			temp.paint(g);
 		}
-		
-		if (dino.getX() < 0) {
-			dino.setX(250);
-			dino.setY(700);
+		for (Log temp: logs) {
+			temp.paint(g);
+			System.out.println(":" + temp.getVx());
 		}
-		
-		if (dino.getX() >= width - 10) {
-			dino.setX(250);
-			dino.setY(700);
+		for (Onion temp: bot) {
+			temp.paint(g);
 		}
+		for (Onion temp: mid) {
+			temp.paint(g);
+		}
+		for (Onion temp: top) {
+			temp.paint(g);
+		}
+		dino.paint(g);
 
 		//System.out.println(dino.getX() + "," + dino.getY());
 	}
@@ -78,17 +84,33 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	public Driver() {
 		JFrame f = new JFrame();
-		f.setTitle("Frogger");
+		f.setTitle("Dino Nuggets");
 		f.setSize(width, height);
 		f.setResizable(false);
 		f.addKeyListener(this);
 		
 		dino = new Player("pter.png");
-		ketchup = new Background("ketchupriver.png", 0, 0, 3, 3);
-		grass = new Background("grass.png", 0, 300, 1.25, 1.25);
+		ketchup = new Background("ketchupriver.png", 0, 50, 3, 3);
+		grass = new Background("grass.png", 0, 0, 1.75, 1.75);
 		
 		for (int i = 0; i < brocs.length; i++) {
 			brocs[i] = new Broccoli("broccoli.png", 0, height - i*50, 0.1, 0.1);
+		}
+		
+		for (int i = 0; i < logs.length; i++) {
+			logs[i] = new Log("french rect.png", 0, 270 - i*100, Math.random()*(3-1+1)+2, 0.7, 0.7);
+		}
+		
+		for (int i = 0; i < bot.length; i++) {
+			bot[i] = new Onion("onion.png", 100 + i*100, 335, 0.1, 0.1);
+		}
+		
+		for (int i = 0; i < mid.length; i++) {
+			mid[i] = new Onion("onion.png", 0 + i*100, 255, 0.1, 0.1);
+		}
+		
+		for (int i = 0; i < top.length; i++) {
+			top[i] = new Onion("onion.png", 50 + i*100, 155, 0.1, 0.1);
 		}
 	
 		f.addMouseListener(this);
