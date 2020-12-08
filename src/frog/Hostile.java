@@ -8,7 +8,7 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-public class Log{
+public class Hostile{
 	// attributes
 	private int x, y; // Position 
 	private double vx, vy;
@@ -17,7 +17,7 @@ public class Log{
 	private Image img; // image
 	
 	/* if filename is provided */
-	public Log(String fileName, int x, int y, double vx, int width, int height) {
+	public Hostile(String fileName, int x, int y, double vx, int width, int height) {
 		// assignment statements for attributes
 		this.x = x;
 		this.y = y;
@@ -62,7 +62,7 @@ public class Log{
 	private Image getImage(String path) {
 		Image tempImage = null;
 		try {
-			URL imageURL = Log.class.getResource(path);
+			URL imageURL = Hostile.class.getResource(path);
 			tempImage = Toolkit.getDefaultToolkit().getImage(imageURL);
 		} catch (Exception e) {
 			e.printStackTrace();

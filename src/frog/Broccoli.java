@@ -11,7 +11,6 @@ import java.net.URL;
 public class Broccoli{
 	// attributes of a broccoli
 	private int x, y; // Position of broccoli
-	private double scaleX, scaleY;
 	private int height, width;
 	
 	private Image img; // image of the broccoli
@@ -37,7 +36,6 @@ public class Broccoli{
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		move(); //ask broccoli to update its location variables
-		tx.scale(scaleX, scaleY);
 		g2.drawImage(img, tx, null);
 		
 	}

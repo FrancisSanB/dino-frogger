@@ -23,6 +23,8 @@ public class Player{
 		// assignment statements for attributes
 		x = 250;
 		y = 700;
+		this.width = width;
+		this.height = height;
 		alive = true;
 		img = getImage(fileName);
 		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -31,11 +33,36 @@ public class Player{
 
 	}
 
-	public void reset() {
-		if (!alive) {
-			x = 200;	//reset position
-			y = 500;
+	public boolean isColliding (Hostile[] d) {
+		for (int i = 0; i < d.length; i++) {
+			if (getRect().intersects(d[i].getRect())) {
+				return true;
+			}
 		}
+		return false;
+	}
+	
+	public boolean isColliding (Onion[] d) {
+		for (int i = 0; i < d.length; i++) {
+			if (getRect().intersects(d[i].getRect())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isColliding (Log[] d) {
+		for (int i = 0; i < d.length; i++) {
+			if (getRect().intersects(d[i].getRect())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void reset() {
+		x = 250;	//reset position
+		y = 700;
 	}
 	
 	public void move() {
@@ -76,7 +103,6 @@ public class Player{
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		move(); //ask dino to update its location variables
-		tx.scale(0.25, 0.25);
 		g2.drawImage(img, tx, null);
 		
 	}
@@ -126,8 +152,8 @@ public class Player{
 	
 	/* Helper function for collision detection later */
 	public Rectangle getRect() {
-		Rectangle temp = new Rectangle(x,y,width,height);
-		return temp;
+		Rectangle rect = new Rectangle(x,y,width,height);
+		return rect;
 	}
 
 }

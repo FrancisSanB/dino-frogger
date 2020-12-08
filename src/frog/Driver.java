@@ -24,14 +24,15 @@ import java.awt.geom.AffineTransform;
 
 public class Driver extends JPanel implements ActionListener, KeyListener, MouseListener {
 
-	Player dino;
+	Player p;
 	Background grass;
 	Background ketchup;
-	Broccoli brocs[] = new Broccoli[10];
+	Broccoli brocs[] = new Broccoli[5];
 	Log logs[] = new Log[3];
 	Onion bot[] = new Onion[5];
 	Onion mid[] = new Onion[5];
 	Onion top[] = new Onion[5];
+	Hostile dinos[] = new Hostile[5];
 
 	Font big = new Font("Courier New", 1, 50);
 	Font font2 = new Font("Courier New", 1, 30);
@@ -52,7 +53,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 		for (Log temp: logs) {
 			temp.paint(g);
-			//System.out.println(":" + temp.getVx());
 		}
 		for (Onion temp: bot) {
 			temp.paint(g);
@@ -63,9 +63,36 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		for (Onion temp: top) {
 			temp.paint(g);
 		}
-		dino.paint(g);
+		for (Hostile temp: dinos) {
+			temp.paint(g);
+		}
+		p.paint(g);
+		
+		// collision with dinos
+		if (p.isColliding(dinos)) {
+			p.reset();
+		}
+		
+		//collision with onions
+		if (p.getY() <= 300 && p.getY() > 200 && !p.isColliding(bot)) {
+			if (!p.isColliding(logs)) {
+				p.reset();
+			}
+		}
+		if (p.getY() <= 200 && p.getY() > 100 && !p.isColliding(mid)) {
+			if (!p.isColliding(logs)) {
+				p.reset();
+			}
+		}
+		if (p.getY() <= 100 && p.getY() > 0 && !p.isColliding(top)) {
+			if (!p.isColliding(logs)) {
+				p.reset();
+			}
+		}
 
-		//System.out.println(dino.getX() + "," + dino.getY());
+		//debug
+		//System.out.println(p.getX() + "," + p.getY());
+		//System.out.println(":" + logs[0].getVx());
 	}
 
 	public void update() {
@@ -89,28 +116,30 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setResizable(false);
 		f.addKeyListener(this);
 		
-		dino = new Player("pter.png", 50, 50);
-		ketchup = new Background("ketchupriver.png", 0, 50, width, 350);
+		p = new Player("pter.png", 50, 50);
+		ketchup = new Background("ketchupriver.png", 0, 50, width, 300);
 		grass = new Background("sand.jpg", 0, 0, width, height);
 		
 		for (int i = 0; i < brocs.length; i++) {
-			brocs[i] = new Broccoli("broccoli.png", 0, height - i*50, 50, 50);
+			brocs[i] = new Broccoli("broccoli.png", 0, 700 - i*50, 50, 50);
 		}
-		
+		for (int i = 0; i < dinos.length; i++) {
+			dinos[i] = new Hostile("steg.png", 0, 350 + i*50, Math.random()*(3-2+1)+2, 50, 50);
+		}
 		for (int i = 0; i < logs.length; i++) {
-			logs[i] = new Log("french rect.png", 0, 270 - i*100, Math.random()*(3-1+1)+2, 50, 100);
+			logs[i] = new Log("french rect.png", 0, 250 - i*100, Math.random()*(3-1+1)+2, 300, 50);
 		}
 		
 		for (int i = 0; i < bot.length; i++) {
-			bot[i] = new Onion("onion.png", 100 + i*100, 400, 50, 50);
+			bot[i] = new Onion("onion.png", 100 + i*100, 300, 50, 50);
 		}
 		
 		for (int i = 0; i < mid.length; i++) {
-			mid[i] = new Onion("onion.png", 0 + i*100, 300, 50, 50);
+			mid[i] = new Onion("onion.png", 0 + i*100, 200, 50, 50);
 		}
 		
 		for (int i = 0; i < top.length; i++) {
-			top[i] = new Onion("onion.png", 50 + i*100, 200, 50, 50);
+			top[i] = new Onion("onion.png", 50 + i*100, 100, 50, 50);
 		}
 	
 		f.addMouseListener(this);
@@ -125,7 +154,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		dino.hop(e);
+		p.hop(e);
 	}
 
 	@Override

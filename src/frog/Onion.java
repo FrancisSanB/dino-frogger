@@ -11,7 +11,6 @@ import java.net.URL;
 public class Onion{
 	// attributes
 	private int x, y; // Position
-	private double scaleX, scaleY;
 	private int height, width;
 	
 	private Image img; // image
@@ -21,6 +20,8 @@ public class Onion{
 		// assignment statements for attributes
 		this.x = x;
 		this.y = y;
+		this.height = height;
+		this.width = width;
 		img = getImage(fileName);
 		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		
@@ -37,7 +38,6 @@ public class Onion{
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		move(); //ask broccoli to update its location variables
-		tx.scale(scaleX, scaleY);
 		g2.drawImage(img, tx, null);
 		
 	}
