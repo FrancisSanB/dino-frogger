@@ -17,18 +17,15 @@ public class Player{
 	private int height;
 	
 	private Image img; // image of the dino
-	private Image up;;
 	
 	/* if filename is provided */
-	public Player(String fileName) {
+	public Player(String fileName, int width, int height) {
 		// assignment statements for attributes
 		x = 250;
 		y = 700;
-		width = 50;
-		height = 50;
 		alive = true;
-		up = getImage(fileName);
-		img = up;
+		img = getImage(fileName);
+		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		
 		init(x, y);
 
@@ -38,7 +35,6 @@ public class Player{
 		if (!alive) {
 			x = 200;	//reset position
 			y = 500;
-			img = up;	//reset img
 		}
 	}
 	
@@ -52,6 +48,7 @@ public class Player{
 			x = 250;
 			y = 700;
 		}
+		
 		tx.setToTranslation(x, y);
 	}
 

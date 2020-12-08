@@ -18,17 +18,14 @@ public class Log{
 	private Image img; // image
 	
 	/* if filename is provided */
-	public Log(String fileName, int x, int y, double vx, double scaleX, double scaleY) {
+	public Log(String fileName, int x, int y, double vx, int width, int height) {
 		// assignment statements for attributes
 		this.x = x;
 		this.y = y;
 		this.vx = vx;
 		vy = 0;
-		this.scaleX = scaleX;
-		this.scaleY = scaleY;
-		width = 50;
-		height = 50;
 		img = getImage(fileName);
+		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		
 		init(x, y);
 	}

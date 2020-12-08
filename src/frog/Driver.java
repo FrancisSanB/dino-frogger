@@ -52,7 +52,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 		for (Log temp: logs) {
 			temp.paint(g);
-			System.out.println(":" + temp.getVx());
+			//System.out.println(":" + temp.getVx());
 		}
 		for (Onion temp: bot) {
 			temp.paint(g);
@@ -89,28 +89,28 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setResizable(false);
 		f.addKeyListener(this);
 		
-		dino = new Player("pter.png");
-		ketchup = new Background("ketchupriver.png", 0, 50, 3, 3);
-		grass = new Background("grass.png", 0, 0, 1.75, 1.75);
+		dino = new Player("pter.png", 50, 50);
+		ketchup = new Background("ketchupriver.png", 0, 50, width, 350);
+		grass = new Background("sand.jpg", 0, 0, width, height);
 		
 		for (int i = 0; i < brocs.length; i++) {
-			brocs[i] = new Broccoli("broccoli.png", 0, height - i*50, 0.1, 0.1);
+			brocs[i] = new Broccoli("broccoli.png", 0, height - i*50, 50, 50);
 		}
 		
 		for (int i = 0; i < logs.length; i++) {
-			logs[i] = new Log("french rect.png", 0, 270 - i*100, Math.random()*(3-1+1)+2, 0.7, 0.7);
+			logs[i] = new Log("french rect.png", 0, 270 - i*100, Math.random()*(3-1+1)+2, 50, 100);
 		}
 		
 		for (int i = 0; i < bot.length; i++) {
-			bot[i] = new Onion("onion.png", 100 + i*100, 335, 0.1, 0.1);
+			bot[i] = new Onion("onion.png", 100 + i*100, 400, 50, 50);
 		}
 		
 		for (int i = 0; i < mid.length; i++) {
-			mid[i] = new Onion("onion.png", 0 + i*100, 255, 0.1, 0.1);
+			mid[i] = new Onion("onion.png", 0 + i*100, 300, 50, 50);
 		}
 		
 		for (int i = 0; i < top.length; i++) {
-			top[i] = new Onion("onion.png", 50 + i*100, 155, 0.1, 0.1);
+			top[i] = new Onion("onion.png", 50 + i*100, 200, 50, 50);
 		}
 	
 		f.addMouseListener(this);

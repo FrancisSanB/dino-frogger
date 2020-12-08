@@ -13,20 +13,16 @@ public class Background{
 	private int x, y; // Position of background
 	private int width; // the size of background
 	private int height;
-	private double scaleX, scaleY;
 	
 	private Image img; // image of the background
 	
 	/* if filename is provided */
-	public Background(String fileName, int x, int y, double scaleX, double scaleY) {
+	public Background(String fileName, int x, int y, int width, int height) {
 		// assignment statements for attributes
 		this.x = x;
 		this.y = y;
-		this.scaleX = scaleX;
-		this.scaleY = scaleY;
-		width = 50;
-		height = 50;
 		img = getImage(fileName);
+		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		init(x, y);
 
 	}
@@ -41,7 +37,6 @@ public class Background{
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		move(); // update its location variables
-		tx.scale(scaleX, scaleY);
 		g2.drawImage(img, tx, null);
 		
 	}
