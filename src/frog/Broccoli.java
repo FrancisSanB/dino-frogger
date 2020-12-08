@@ -20,6 +20,8 @@ public class Broccoli{
 		// assignment statements for attributes
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.height = height;
 		img = getImage(fileName);
 		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		

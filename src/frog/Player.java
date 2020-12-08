@@ -12,6 +12,7 @@ import java.net.URL;
 public class Player{
 	// attributes of a dino
 	private int x, y; // Position of dino
+	private double vx, vy;
 	private boolean alive; // lives
 	private int width; // the size of dino
 	private int height;
@@ -23,6 +24,8 @@ public class Player{
 		// assignment statements for attributes
 		x = 250;
 		y = 700;
+		vx = 0;
+		vy = 0;
 		this.width = width;
 		this.height = height;
 		alive = true;
@@ -60,9 +63,28 @@ public class Player{
 		return false;
 	}
 	
+	public boolean isColliding (Broccoli[] d) {
+		for (int i = 0; i < d.length; i++) {
+			if (getRect().intersects(d[i].getRect())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int whichLog (Log[] d) {
+		for (int i = 0; i < d.length; i++) {
+			if (getRect().intersects(d[i].getRect())) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	public void reset() {
 		x = 250;	//reset position
 		y = 700;
+		vx = 0;
 	}
 	
 	public void move() {
@@ -75,6 +97,9 @@ public class Player{
 			x = 250;
 			y = 700;
 		}
+		
+		x += vx;
+		y += vy;
 		
 		tx.setToTranslation(x, y);
 	}
@@ -148,6 +173,14 @@ public class Player{
 	
 	public int getWidth() {
 		return width;
+	}
+	
+	public void setVx(double vx) {
+		this.vx = vx;
+	}
+	
+	public double getVx() {
+		return vx;
 	}
 	
 	/* Helper function for collision detection later */

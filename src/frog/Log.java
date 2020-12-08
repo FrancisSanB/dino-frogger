@@ -22,9 +22,9 @@ public class Log{
 		this.x = x;
 		this.y = y;
 		this.vx = vx;
+		vy = 0;
 		this.width = width;
 		this.height = height;
-		vy = 0;
 		img = getImage(fileName);
 		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		
@@ -45,7 +45,7 @@ public class Log{
 		move(); //ask broccoli to update its location variables
 		g2.drawImage(img, tx, null);
 		
-		if (x < -300) {
+		if (x < -200) {
 			vx *= -1;
 		}
 		if (x > 600) {
