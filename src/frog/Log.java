@@ -45,7 +45,7 @@ public class Log{
 		move(); //ask broccoli to update its location variables
 		g2.drawImage(img, tx, null);
 		
-		if (x < -200) {
+		if (x < -350) {
 			vx *= -1;
 		}
 		if (x > 600) {

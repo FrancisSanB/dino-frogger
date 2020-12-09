@@ -37,13 +37,16 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Onion bot[] = new Onion[5];
 	Onion mid[] = new Onion[5];
 	Onion top[] = new Onion[5];
-	Hostile dinos[] = new Hostile[5];
+	Hostile steg[] = new Hostile[3];
+	Hostile bronc[] = new Hostile[2];
+	
+	Music bg;
 
+	Font small = new Font("Courier New", 1, 30);
 	Font big = new Font("Courier New", 1, 50);
-	Font font2 = new Font("Courier New", 1, 30);
 	Font biggest = new Font("Courier New", 1, 80);
 	
-	int width = 560;
+	int width = 550;
 	int height = 800;
 	
 	// ****************************paint
@@ -83,13 +86,16 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		for (Onion temp: top) {
 			temp.paint(g);
 		}
-		for (Hostile temp: dinos) {
+		for (Hostile temp: steg) {
+			temp.paint(g);
+		}
+		for (Hostile temp: bronc) {
 			temp.paint(g);
 		}
 		p.paint(g);
 		
 		// collision with dinos
-		if (p.isColliding(dinos)) {
+		if (p.isColliding(steg) || p.isColliding(bronc)) {
 			p.reset();
 		}
 		
@@ -103,7 +109,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			p.reset();
 		}
 		
-		//collision with onions
+		//collision with onions and logs
 		if (p.getY() <= 300 && p.getY() > 200 && !p.isColliding(bot)) {
 			if (!p.isColliding(logs)) {
 				p.reset();
@@ -130,7 +136,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		//debug
 		//System.out.println(p.getX() + "," + p.getY());
-		//System.out.println("d:" + logs[0].getVx());
+		//System.out.println("l:" + logs[0].getVx());
 		//System.out.println("p: " + p.getVx());
 	}
 
@@ -177,15 +183,18 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		for (int i = 0; i < oneBrocs.length; i++) {
 			oneBrocs[i] = new Broccoli("broccoli.png", 0 + i*50, 750, 50, 50);
 		}
-		for (int i = 0; i < dinos.length; i++) {
-			dinos[i] = new Hostile("steg.png", 0, 350 + i*50, Math.random()*(3+3+1)-3, 50, 50);
+		for (int i = 0; i < steg.length; i++) {
+			steg[i] = new Hostile("steg.png", 0, 350 + i*100, Math.random()*(3+3+1)-3, 50, 50);
+		}
+		for (int i = 0; i < bronc.length; i++) {
+			bronc[i] = new Hostile("bronc.png", 0, 400 + i*100, Math.random()*(3+3+1)-3, 50, 50);
 		}
 		for (int i = 0; i < logs.length; i++) {
 			logs[i] = new Log("french rect.png", 0, 250 - i*100, Math.random()*(3-1+1)+1, 300, 50);
 		}
 		
 		for (int i = 0; i < bot.length; i++) {
-			bot[i] = new Onion("onion.png", 75 + i*100, 300, 50, 50);
+			bot[i] = new Onion("onion.png", 50 + i*100, 300, 50, 50);
 		}
 		
 		for (int i = 0; i < mid.length; i++) {
@@ -193,7 +202,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 		
 		for (int i = 0; i < top.length; i++) {
-			top[i] = new Onion("onion.png", 50 + i*100, 100, 50, 50);
+			top[i] = new Onion("onion.png", 75 + i*100, 100, 50, 50);
 		}
 	
 		f.addMouseListener(this);
@@ -202,6 +211,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		
+		Music bg = new Music("music.wav", true);
+		bg.loop();
 	}
 
 	Timer t;

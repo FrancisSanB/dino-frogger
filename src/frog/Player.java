@@ -31,9 +31,8 @@ public class Player{
 		alive = true;
 		img = getImage(fileName);
 		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		
-		init(x, y);
 
+		init(x, y);
 	}
 
 	public boolean isColliding (Hostile[] d) {
@@ -85,6 +84,7 @@ public class Player{
 		x = 250;	//reset position
 		y = 700;
 		vx = 0;
+		vy = 0;
 	}
 	
 	public void move() {
