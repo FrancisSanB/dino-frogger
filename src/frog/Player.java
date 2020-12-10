@@ -16,6 +16,7 @@ public class Player{
 	private boolean alive; // lives
 	private int width; // the size of dino
 	private int height;
+	private boolean bnorth, bsouth, beast, bwest;
 	
 	private Image img; // image of the dino
 	
@@ -28,6 +29,10 @@ public class Player{
 		vy = 0;
 		this.width = width;
 		this.height = height;
+		bnorth = false;
+		bsouth = false;
+		beast = false;
+		bwest = false;
 		alive = true;
 		img = getImage(fileName);
 		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -62,13 +67,30 @@ public class Player{
 		return false;
 	}
 	
-	public boolean isColliding (Broccoli[] d) {
+	public void isColliding (Broccoli[] d) {
 		for (int i = 0; i < d.length; i++) {
-			if (getRect().intersects(d[i].getRect())) {
-				return true;
+			if (northRect().intersects(d[i].getRect())) {
+				System.out.println("n");
+				bnorth = true;
 			}
+			if (southRect().intersects(d[i].getRect())) {
+				System.out.println("s");
+				bsouth = true;
+			}
+			if (eastRect().intersects(d[i].getRect())) {
+				System.out.println("e");
+				beast = true;
+			}
+			if (westRect().intersects(d[i].getRect())) {
+				System.out.println("w");
+				bwest = true;
+			}
+			
+			bnorth = false;
+			bsouth = false;
+			beast = false;
+			bwest = false;
 		}
-		return false;
 	}
 	
 	public int whichLog (Log[] d) {
@@ -106,16 +128,16 @@ public class Player{
 
 	//move the main dino
 	public void hop(KeyEvent e) {
-		if (e.getKeyCode() == 83 || e.getKeyCode() == 40) {
+		if (e.getKeyCode() == 83 || e.getKeyCode() == 40 && !bsouth) {
 			y += 50;
 		}
-		if (e.getKeyCode() == 87 || e.getKeyCode() == 38) {
+		if ((e.getKeyCode() == 87 || e.getKeyCode() == 38) && !bnorth) {
 			y -= 50;
 		}
-		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) {
+		if ((e.getKeyCode() == 68 || e.getKeyCode() == 39) && !beast) {
 			x += 50;
 		}
-		if (e.getKeyCode() == 65 || e.getKeyCode() == 37) {
+		if ((e.getKeyCode() == 65 || e.getKeyCode() == 37) && !bwest) {
 			x -= 50;
 		}
 		tx.setToTranslation(x, y);
@@ -188,5 +210,24 @@ public class Player{
 		Rectangle rect = new Rectangle(x,y,width,height);
 		return rect;
 	}
-
+	
+	public Rectangle northRect() {
+		Rectangle rect = new Rectangle(x,y - height,width,height);
+		return rect;
+	}
+	
+	public Rectangle southRect() {
+		Rectangle rect = new Rectangle(x,y + height,width,height);
+		return rect;
+	}
+	
+	public Rectangle eastRect() {
+		Rectangle rect = new Rectangle(x + width,y,width,height);
+		return rect;
+	}
+	
+	public Rectangle westRect() {
+		Rectangle rect = new Rectangle(x - width,y,width,height);
+		return rect;
+	}
 }

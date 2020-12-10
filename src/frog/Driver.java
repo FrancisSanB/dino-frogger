@@ -27,12 +27,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Player p;
 	Background grass;
 	Background ketchup;
-	Broccoli fourBrocs[] = new Broccoli[1];
-	Broccoli threeBrocs[] = new Broccoli[2];
-	Broccoli twoBrocs[] = new Broccoli[4];
-	Broccoli threeBrocs2[] = new Broccoli[3];
-	Broccoli twoBrocs2[] = new Broccoli[5];
-	Broccoli oneBrocs[] = new Broccoli[11];
+	Broccoli leftBrocs3[] = new Broccoli[1];
+	Broccoli leftBrocs2[] = new Broccoli[2];
+	Broccoli leftBrocs1[] = new Broccoli[4];
+	Broccoli rightBrocs2[] = new Broccoli[3];
+	Broccoli rightBrocs1[] = new Broccoli[5];
+	Broccoli botBrocs[] = new Broccoli[11];
 	Log logs[] = new Log[3];
 	Onion bot[] = new Onion[5];
 	Onion mid[] = new Onion[5];
@@ -56,22 +56,22 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		grass.paint(g);
 		ketchup.paint(g);
-		for (Broccoli temp: fourBrocs) {
+		for (Broccoli temp: leftBrocs3) {
 			temp.paint(g);
 		}
-		for (Broccoli temp: threeBrocs) {
+		for (Broccoli temp: leftBrocs2) {
 			temp.paint(g);
 		}
-		for (Broccoli temp: twoBrocs) {
+		for (Broccoli temp: leftBrocs1) {
 			temp.paint(g);
 		}
-		for (Broccoli temp: threeBrocs2) {
+		for (Broccoli temp: rightBrocs2) {
 			temp.paint(g);
 		}
-		for (Broccoli temp: twoBrocs2) {
+		for (Broccoli temp: rightBrocs1) {
 			temp.paint(g);
 		}
-		for (Broccoli temp: oneBrocs) {
+		for (Broccoli temp: botBrocs) {
 			temp.paint(g);
 		}
 		for (Log temp: logs) {
@@ -100,14 +100,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 		
 		//collision with broccoli
-		if (p.isColliding(oneBrocs) ||
-				p.isColliding(twoBrocs) ||
-				p.isColliding(threeBrocs) ||
-				p.isColliding(fourBrocs) ||
-				p.isColliding(twoBrocs2) ||
-				p.isColliding(threeBrocs2)) {
-			p.reset();
-		}
+		p.isColliding(botBrocs);
+		p.isColliding(leftBrocs1);
+		p.isColliding(leftBrocs2);
+		p.isColliding(leftBrocs3);
+		p.isColliding(rightBrocs1);
+		p.isColliding(rightBrocs2);
 		
 		//collision with onions and logs
 		if (p.getY() <= 300 && p.getY() > 200 && !p.isColliding(bot)) {
@@ -133,7 +131,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		} else {
 			p.setVx(0);
 		}
-
+		
 		//debug
 		//System.out.println(p.getX() + "," + p.getY());
 		//System.out.println("l:" + logs[0].getVx());
@@ -141,7 +139,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	}
 
 	public void update() {
-
+		// tyson said to use this, maybe eventually
 	}
 
 	@Override
@@ -165,34 +163,33 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		ketchup = new Background("ketchupriver.png", 0, 50, width, 300);
 		grass = new Background("sand.jpg", 0, 0, width, height);
 		
-		for (int i = 0; i < fourBrocs.length; i++) {
-			fourBrocs[i] = new Broccoli("broccoli.png", 0 + i*50, 600, 50, 50);
+		for (int i = 0; i < leftBrocs3.length; i++) {
+			leftBrocs3[i] = new Broccoli("broccoli.png", 0 + i*50, 600, 50, 50);
 		}
-		for (int i = 0; i < threeBrocs.length; i++) {
-			threeBrocs[i] = new Broccoli("broccoli.png", 0 + i*50, 650, 50, 50);
+		for (int i = 0; i < leftBrocs2.length; i++) {
+			leftBrocs2[i] = new Broccoli("broccoli.png", 0 + i*50, 650, 50, 50);
 		}
-		for (int i = 0; i < twoBrocs.length; i++) {
-			twoBrocs[i] = new Broccoli("broccoli.png", 0 + i*50, 700, 50, 50);
+		for (int i = 0; i < leftBrocs1.length; i++) {
+			leftBrocs1[i] = new Broccoli("broccoli.png", 0 + i*50, 700, 50, 50);
 		}
-		for (int i = 0; i < threeBrocs2.length; i++) {
-			threeBrocs2[i] = new Broccoli("broccoli.png", 500 - i*50, 650, 50, 50);
+		for (int i = 0; i < rightBrocs2.length; i++) {
+			rightBrocs2[i] = new Broccoli("broccoli.png", 500 - i*50, 650, 50, 50);
 		}
-		for (int i = 0; i < twoBrocs2.length; i++) {
-			twoBrocs2[i] = new Broccoli("broccoli.png", 500 - i*50, 700, 50, 50);
+		for (int i = 0; i < rightBrocs1.length; i++) {
+			rightBrocs1[i] = new Broccoli("broccoli.png", 500 - i*50, 700, 50, 50);
 		}
-		for (int i = 0; i < oneBrocs.length; i++) {
-			oneBrocs[i] = new Broccoli("broccoli.png", 0 + i*50, 750, 50, 50);
+		for (int i = 0; i < botBrocs.length; i++) {
+			botBrocs[i] = new Broccoli("broccoli.png", 0 + i*50, 750, 50, 50);
 		}
 		for (int i = 0; i < steg.length; i++) {
-			steg[i] = new Hostile("steg.png", 0, 350 + i*100, Math.random()*(3+3+1)-3, 50, 50);
+			steg[i] = new Hostile("steg.png", 0, 350 + i*100, (Math.random()>.5)?Math.random()*(5-3+1)+3:Math.random()*(-5+3+1)-3, 50, 50);
 		}
 		for (int i = 0; i < bronc.length; i++) {
-			bronc[i] = new Hostile("bronc.png", 0, 400 + i*100, Math.random()*(3+3+1)-3, 50, 50);
+			bronc[i] = new Hostile("bronc.png", 0, 400 + i*100, (Math.random()>.5)?Math.random()*(5-3+1)+3:Math.random()*(-5+3+1)-3, 50, 50);
 		}
 		for (int i = 0; i < logs.length; i++) {
-			logs[i] = new Log("french rect.png", 0, 250 - i*100, Math.random()*(3-1+1)+1, 300, 50);
+			logs[i] = new Log("french rect.png", 0, 250 - i*100, (Math.random()>.5)?Math.random()*(7-3+1)+3:Math.random()*(-7+3+1)-3, 300, 50);
 		}
-		
 		for (int i = 0; i < bot.length; i++) {
 			bot[i] = new Onion("onion.png", 50 + i*100, 300, 50, 50);
 		}
@@ -213,7 +210,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setVisible(true);
 		
 		Music bg = new Music("music.wav", true);
-		bg.loop();
+		//bg.loop();
 	}
 
 	Timer t;
