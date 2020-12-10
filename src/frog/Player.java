@@ -16,7 +16,7 @@ public class Player{
 	private boolean alive; // lives
 	private int width; // the size of dino
 	private int height;
-	private boolean bnorth, bsouth, beast, bwest;
+	private boolean isColN, isColS, isColE, isColW;
 	
 	private Image img; // image of the dino
 	
@@ -29,10 +29,7 @@ public class Player{
 		vy = 0;
 		this.width = width;
 		this.height = height;
-		bnorth = false;
-		bsouth = false;
-		beast = false;
-		bwest = false;
+		isColN = isColS = isColE = isColW = false;
 		alive = true;
 		img = getImage(fileName);
 		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -70,26 +67,21 @@ public class Player{
 	public void isColliding (Broccoli[] d) {
 		for (int i = 0; i < d.length; i++) {
 			if (northRect().intersects(d[i].getRect())) {
-				System.out.println("n");
-				bnorth = true;
+				//System.out.println("n");
+				isColN = true;
 			}
 			if (southRect().intersects(d[i].getRect())) {
-				System.out.println("s");
-				bsouth = true;
+				//System.out.println("s");
+				isColS = true;
 			}
 			if (eastRect().intersects(d[i].getRect())) {
-				System.out.println("e");
-				beast = true;
+				//System.out.println("e");
+				isColE = true;
 			}
 			if (westRect().intersects(d[i].getRect())) {
-				System.out.println("w");
-				bwest = true;
+				//System.out.println("w");
+				isColW = true;
 			}
-			
-			bnorth = false;
-			bsouth = false;
-			beast = false;
-			bwest = false;
 		}
 	}
 	
@@ -114,7 +106,6 @@ public class Player{
 			x = 250;
 			y = 700;
 		}
-		
 		if (x >= 560 - 10) {
 			x = 250;
 			y = 700;
@@ -128,18 +119,32 @@ public class Player{
 
 	//move the main dino
 	public void hop(KeyEvent e) {
-		if (e.getKeyCode() == 83 || e.getKeyCode() == 40 && !bsouth) {
-			y += 50;
+		if (e.getKeyCode() == 83 || e.getKeyCode() == 40) {
+			if (!isColS) {
+				System.out.println("s");
+				y += 50;
+			}
 		}
-		if ((e.getKeyCode() == 87 || e.getKeyCode() == 38) && !bnorth) {
-			y -= 50;
+		if (e.getKeyCode() == 87 || e.getKeyCode() == 38) {
+			if (!isColN) {
+				System.out.println("n");
+				y -= 50;
+			}
 		}
-		if ((e.getKeyCode() == 68 || e.getKeyCode() == 39) && !beast) {
-			x += 50;
+		if (e.getKeyCode() == 68 || e.getKeyCode() == 39) {
+			if (!isColE) {
+				System.out.println("e");
+				x += 50;
+			}
 		}
-		if ((e.getKeyCode() == 65 || e.getKeyCode() == 37) && !bwest) {
-			x -= 50;
+		if (e.getKeyCode() == 65 || e.getKeyCode() == 37) {
+			if (!isColW) {
+				System.out.println("w");
+				x -= 50;
+			}
 		}
+		
+		isColN = isColS = isColE = isColW = false;
 		tx.setToTranslation(x, y);
 	}
 	

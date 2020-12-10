@@ -23,7 +23,6 @@ import java.awt.image.*;
 import java.awt.geom.AffineTransform;
 
 public class Driver extends JPanel implements ActionListener, KeyListener, MouseListener {
-
 	Player p;
 	Background grass;
 	Background ketchup;
@@ -42,7 +41,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	
 	Music bg;
 
-	Font small = new Font("Courier New", 1, 30);
+	Font small = new Font("Courier New", Font.BOLD, 30);
 	Font big = new Font("Courier New", 1, 50);
 	Font biggest = new Font("Courier New", 1, 80);
 	
@@ -54,6 +53,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 
+		//paint objects
 		grass.paint(g);
 		ketchup.paint(g);
 		for (Broccoli temp: leftBrocs3) {
@@ -139,7 +139,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	}
 
 	public void update() {
-		// tyson said to use this, maybe eventually
+		//tyson said to use this, maybe eventually
 	}
 
 	@Override
@@ -159,7 +159,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setResizable(false);
 		f.addKeyListener(this);
 		
-		p = new Player("pter.png", 50, 50);
+		p = new Player("steg.png", 50, 50);
 		ketchup = new Background("ketchupriver.png", 0, 50, width, 300);
 		grass = new Background("sand.jpg", 0, 0, width, height);
 		
@@ -182,13 +182,13 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			botBrocs[i] = new Broccoli("broccoli.png", 0 + i*50, 750, 50, 50);
 		}
 		for (int i = 0; i < steg.length; i++) {
-			steg[i] = new Hostile("steg.png", 0, 350 + i*100, (Math.random()>.5)?Math.random()*(5-3+1)+3:Math.random()*(-5+3+1)-3, 50, 50);
+			steg[i] = new Hostile("bronc.png", 0, 350 + i*100, (Math.random()>.5)?Math.random()*(5-4+1)+4:Math.random()*(-5+4+1)-4, 50, 50);
 		}
 		for (int i = 0; i < bronc.length; i++) {
-			bronc[i] = new Hostile("bronc.png", 0, 400 + i*100, (Math.random()>.5)?Math.random()*(5-3+1)+3:Math.random()*(-5+3+1)-3, 50, 50);
+			bronc[i] = new Hostile("pter.png", 0, 400 + i*100, (Math.random()>.5)?Math.random()*(7-6+1)+6:Math.random()*(-7+6+1)-6, 50, 50);
 		}
 		for (int i = 0; i < logs.length; i++) {
-			logs[i] = new Log("french rect.png", 0, 250 - i*100, (Math.random()>.5)?Math.random()*(7-3+1)+3:Math.random()*(-7+3+1)-3, 300, 50);
+			logs[i] = new Log("french rect.png", 0, 250 - i*100, (Math.random()>.5)?Math.random()*(7-5+1)+5:Math.random()*(-7+5+1)-5, 300, 50);
 		}
 		for (int i = 0; i < bot.length; i++) {
 			bot[i] = new Onion("onion.png", 50 + i*100, 300, 50, 50);
@@ -209,8 +209,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 		
+		//music
 		Music bg = new Music("music.wav", true);
-		//bg.loop();
+		bg.loop();
 	}
 
 	Timer t;
