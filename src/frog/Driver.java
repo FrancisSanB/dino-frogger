@@ -132,8 +132,13 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			p.setVx(0);
 		}
 		
+		//snap with onions
+		p.onionSnap(bot);
+		p.onionSnap(top);
+		p.onionSnap(mid);
+		
 		//debug
-		//System.out.println(p.getX() + "," + p.getY());
+		System.out.println(p.getX() + "," + p.getY());
 		//System.out.println("l:" + logs[0].getVx());
 		//System.out.println("p: " + p.getVx());
 	}

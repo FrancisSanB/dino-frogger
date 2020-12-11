@@ -94,6 +94,15 @@ public class Player{
 		return -1;
 	}
 	
+	public void onionSnap (Onion[] o) {
+		for (int i = 0; i < o.length; i++) {
+			if (getRect().intersects(o[i].getRect())) {
+				x = o[i].getX();
+				y = o[i].getY();
+			}
+		}
+	}
+	
 	public void reset() {
 		x = 250;	//reset position
 		y = 700;
@@ -103,12 +112,13 @@ public class Player{
 	
 	public void move() {
 		if (x < 0) {
-			x = 250;
-			y = 700;
+			reset();
 		}
 		if (x >= 560 - 10) {
-			x = 250;
-			y = 700;
+			reset();
+		}
+		if (y < 0) {
+			reset();
 		}
 		
 		x += vx;
