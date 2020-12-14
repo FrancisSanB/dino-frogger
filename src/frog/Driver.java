@@ -52,7 +52,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	// method******************************************
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-
+		
 		//paint objects
 		grass.paint(g);
 		ketchup.paint(g);
@@ -138,7 +138,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		p.onionSnap(mid);
 		
 		//debug
-		System.out.println(p.getX() + "," + p.getY());
+		//System.out.println(p.getX() + "," + p.getY());
 		//System.out.println("l:" + logs[0].getVx());
 		//System.out.println("p: " + p.getVx());
 	}

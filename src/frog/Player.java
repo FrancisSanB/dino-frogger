@@ -1,5 +1,7 @@
 package frog;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -14,12 +16,14 @@ public class Player{
 	private int x, y; // Position of dino
 	private double vx, vy;
 	private boolean alive; // lives
+	private int deaths; //num of deaths
 	private int width; // the size of dino
 	private int height;
 	private boolean isColN, isColS, isColE, isColW;
 	
 	private Image img; // image of the dino
-	
+	Font small = new Font("Courier New", Font.BOLD, 50);
+
 	/* if filename is provided */
 	public Player(String fileName, int width, int height) {
 		// assignment statements for attributes
@@ -31,6 +35,7 @@ public class Player{
 		this.height = height;
 		isColN = isColS = isColE = isColW = false;
 		alive = true;
+		deaths = 0;
 		img = getImage(fileName);
 		img = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 
@@ -108,6 +113,7 @@ public class Player{
 		y = 700;
 		vx = 0;
 		vy = 0;
+		deaths++;
 	}
 	
 	public void move() {
@@ -167,6 +173,9 @@ public class Player{
 		move(); //ask dino to update its location variables
 		g2.drawImage(img, tx, null);
 		
+		g.setFont(small);
+		g.setColor(Color.black);
+		g.drawString(getDeaths(), 0, 40);
 	}
 
 	private void init(double a, double b) {
@@ -218,6 +227,10 @@ public class Player{
 	
 	public double getVx() {
 		return vx;
+	}
+	
+	public String getDeaths() {
+		return "Deaths:" + deaths;
 	}
 	
 	/* Helper function for collision detection later */
